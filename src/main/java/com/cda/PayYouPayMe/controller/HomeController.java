@@ -34,12 +34,14 @@ public class HomeController {
 	//@GetMapping("/home")
 	@GetMapping("/")
 	public String home() {
+		//vide?
 		return "home";
 	}
 	
 	@PostMapping("/signUp")
 	public String signUp(Model model, @RequestParam String userName,
 			@RequestParam String password) {
+		//pas au bon endroit
 		Utilisateur utilisateurToSave = new Utilisateur();
 		utilisateurToSave.setUsername(userName);
 		utilisateurToSave.setPassword(passwordEncoder.encode(password));
