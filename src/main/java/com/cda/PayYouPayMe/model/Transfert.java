@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Transaction {
+public class Transfert {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,22 +29,30 @@ public class Transaction {
 
 	@ManyToOne
 	private Utilisateur sender;
+	
+	public Transfert() {
+		super();
+	}
 
-	@ManyToOne
-	private Utilisateur reciever;
-
 	
 	
-	
-	public Transaction(Float amount, String messageContent, LocalDate date) {
+	public Transfert(Float amount, String messageContent, LocalDate date, Utilisateur sender) {
 		super();
 		this.amount = amount;
 		this.messageContent = messageContent;
 		this.date = date;
+		this.sender = sender;
 	}
 
-	public Transaction() {
+
+
+	public Transfert(Integer id, Float amount, String messageContent, LocalDate date, Utilisateur sender) {
 		super();
+		this.id = id;
+		this.amount = amount;
+		this.messageContent = messageContent;
+		this.date = date;
+		this.sender = sender;
 	}
 
 	public Integer getId() {
@@ -86,14 +94,8 @@ public class Transaction {
 	public void setSender(Utilisateur sender) {
 		this.sender = sender;
 	}
-
-	public Utilisateur getReciever() {
-		return reciever;
-	}
-
-	public void setReciever(Utilisateur reciever) {
-		this.reciever = reciever;
-	}
-
+	
+	
+	
 	
 }
