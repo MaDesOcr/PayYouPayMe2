@@ -36,16 +36,34 @@
 		<th>Id</th>
 		<th>MessageContent</th>
 		<th>Date</th>
-		<th>Amount</th>
-		<th>actif</th>
-
+		<th>sender</th>
+		<th>reciever</th>
+		<th>validé?</th>
+		<th>Valider</th>
+		<th>Rejeter</th>
+	
 	</tr>
 	<tr th:each="transaction : ${transactions}">
 		<td th:text="${transaction.id}" />
 		<td th:text="${transaction.messageContent}" />
 		<td th:text="${transaction.date}" />
-		<td th:text="${transaction.sender}" />
-		<td th:text="${transaction.reciever}" />
+		<td th:text="${transaction.sender.username}" />
+		<td th:text="${transaction.reciever.username}" />
+		<td th:text="${transaction.valide}" />
+		<td><span th:if="${!transaction.valide}">
+				<form th:action="@{'/admin/validertransaction?id=' + ${transaction.id}}"
+					method="POST">
+					<input type="submit" value="Valider">
+				</form>
+			</span> 
+		</td>
+		<td><span th:if="${!transaction.rejet && !transaction.valide}">
+				<form th:action="@{'/admin/rejetertransaction?id=' + ${transaction.id}}"
+					method="POST">
+					<input type="submit" value="Rejeter">
+				</form>
+			</span> 
+		</td>
 
 	</tr>
 </table>
@@ -62,6 +80,7 @@
 		<th>balance</th>
 		<th>actif</th>
 		<th>desactiver</th>
+		<th>confirmer statut</th>
 
 	</tr>
 	<tr th:each="user : ${utilisateurs}">
@@ -72,7 +91,14 @@
 		<td><span th:if="${user.actif}">
 				<form th:action="@{'/admin/desactiveruser?id=' + ${user.id}}"
 					method="POST">
-					<input type="submit" value="desactiver">
+					<input type="submit" value="Desactiver">
+				</form>
+			</span> 
+		</td>
+		<td><span th:if="${!user.confirmer}">
+				<form th:action="@{'/admin/confirmeruser?id=' + ${user.id}}"
+					method="POST">
+					<input type="submit" value="Confirmer">
 				</form>
 			</span> 
 		</td>

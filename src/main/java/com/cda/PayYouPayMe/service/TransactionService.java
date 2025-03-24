@@ -61,6 +61,8 @@ public class TransactionService {
 			transactionToCreate.setReciever(reciever);
 			transactionToCreate.setSender(sender);
 			
+			if(sender.isConfirmer()) transactionToCreate.setValide(true);
+			
 			transactionRepository.save(transactionToCreate);
 			reciever.setBalance(reciever.getBalance()+amount);
 			sender.setBalance(sender.getBalance()-amount);
@@ -71,5 +73,28 @@ public class TransactionService {
 			
 		}
 		
+	}
+
+	public void validerTransaction(int id) {
+		Transaction transactionToValidate = transactionRepository.findById(id).get();
+		transactionToValidate.setValide(true);
+		transactionRepository.save(transactionToValidate);
+		
+	}
+
+	public void rejetTransaction(int id) {
+		Transaction transactionToRejeter = transactionRepository.findById(id).get();
+		transactionToRejeter.setRejet(true);
+		transactionToRejeter.setValide(true);
+		
+		Utilisateur sender = transactionToRejeter.getSender();
+		Utilisateur reciever = transactionToRejeter.getReciever();
+		
+		reciever.setBalance(reciever.getBalance()-transactionToRejeter.getAmount());
+		sender.setBalance(sender.getBalance()+transactionToRejeter.getAmount());
+		
+		utilisateurService.updateUser(reciever);
+		utilisateurService.updateUser(sender);
+		transactionRepository.save(transactionToRejeter);
 	}
 }

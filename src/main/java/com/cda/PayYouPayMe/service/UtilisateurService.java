@@ -87,4 +87,11 @@ public class UtilisateurService {
 		utilisateurRepository.save(utilisateurToSuspendre);
 		
 	}
+
+	public void confirmerUser(int id) {
+		Utilisateur utilisateurToConfirm = utilisateurRepository.getById(id);
+		utilisateurToConfirm.setConfirmer(true);
+		utilisateurRepository.save(utilisateurToConfirm);
+		
+	}
 }

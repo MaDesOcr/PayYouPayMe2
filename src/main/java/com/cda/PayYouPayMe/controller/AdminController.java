@@ -14,6 +14,8 @@ import com.cda.PayYouPayMe.service.MessageService;
 import com.cda.PayYouPayMe.service.TransactionService;
 import com.cda.PayYouPayMe.service.UtilisateurService;
 
+import jakarta.validation.Valid;
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -70,6 +72,31 @@ public class AdminController {
 		return "alldatas";
 	}
 	
+	@PostMapping("/confirmeruser")
+	public String confirmerUser(Model model, @RequestParam int id) {
+		utilisateurService.confirmerUser(id);
+		model.addAttribute("messages", messageService.getAllMessages());
+		model.addAttribute("transactions", transactionService.getAllTransactions());
+		model.addAttribute("utilisateurs", utilisateurService.getAllUtilisateurs());
+		return "alldatas";
+	}
 	
+	@PostMapping("/validertransaction")
+	public String validerTransaction(Model model, @RequestParam int id) {
+		transactionService.validerTransaction(id);
+		model.addAttribute("messages", messageService.getAllMessages());
+		model.addAttribute("transactions", transactionService.getAllTransactions());
+		model.addAttribute("utilisateurs", utilisateurService.getAllUtilisateurs());
+		return "alldatas";
+	}
+	
+	@PostMapping("/rejetertransaction")
+	public String rejeterTransaction(Model model, @RequestParam int id) {
+		transactionService.rejetTransaction(id);
+		model.addAttribute("messages", messageService.getAllMessages());
+		model.addAttribute("transactions", transactionService.getAllTransactions());
+		model.addAttribute("utilisateurs", utilisateurService.getAllUtilisateurs());
+		return "alldatas";
+	}
 	
 }

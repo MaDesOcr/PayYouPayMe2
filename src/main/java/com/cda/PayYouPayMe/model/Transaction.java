@@ -33,7 +33,9 @@ public class Transaction {
 	@ManyToOne
 	private Utilisateur reciever;
 
+	private boolean valide;
 	
+	private boolean rejet;
 	
 	
 	public Transaction(Float amount, String messageContent, LocalDate date) {
@@ -93,6 +95,22 @@ public class Transaction {
 
 	public void setReciever(Utilisateur reciever) {
 		this.reciever = reciever;
+	}
+
+	public boolean isValide() {
+		return valide;
+	}
+
+	public void setValide(boolean valide) {
+		this.valide = valide;
+	}
+
+	public boolean isRejet() {
+		return rejet;
+	}
+
+	public void setRejet(boolean rejet) {
+		this.rejet = rejet;
 	}
 
 	

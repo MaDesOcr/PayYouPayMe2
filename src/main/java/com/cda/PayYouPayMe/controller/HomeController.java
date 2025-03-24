@@ -49,6 +49,6 @@ public class HomeController {
 		utilisateurToSave.setConfirmer(false);
 		utilisateurService.createUser(utilisateurToSave);
 		
-		return "login";
+		return "home";
 	}
 }
