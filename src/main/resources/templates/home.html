@@ -1,10 +1,16 @@
  <div th:replace="~{fragments/menu :: menuPrincipal}"></div>
  
- <div>
+ <div th:if="${utilisateur==null}">
 	<form th:action="@{/signUp}" method="POST">
 		<input type="text" name="userName">
 		<input type="text" name="password">
 		<input type="submit" value="Créer compte">
 	</form>
-
+ </div>
+ 
+ <div th:text="${Erreur}"></div>
+ 
+ 
+ <div th:unless="${utilisateur==null}">
+ 	<h3> Bonjour <span th:text="${utilisateur.username}"></span></h3>
  </div>

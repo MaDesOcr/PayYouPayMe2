@@ -31,7 +31,6 @@ public class DataInitializer {
 			u1.setFirstName("firstNameU1");
 			u1.setLastName("LastNameU1");
 			u1.setUsername("user");
-			u1.setLogin("usertest");
 			u1.setIban("monIBAN");
 			u1.setEmail("test1@test.com");
 			u1.setPassword("$2y$10$.qkbukzzX21D.bqbI.B2R.tvWP90o/Y16QRWVLodw51BHft7ZWbc.");
@@ -46,7 +45,6 @@ public class DataInitializer {
 			u2.setUsername("admin");
 			u2.setPassword("$2y$10$kp1V7UYDEWn17WSK16UcmOnFd1mPFVF6UkLrOOCGtf24HOYt8p1iC");
 			u2.setRole("ADMIN");
-			u2.setLogin("usertest2");
 			u2.setIban("monIBAN");
 			u2.setEmail("test2@test.com");
 			u2.setBalance(20f);
@@ -58,7 +56,6 @@ public class DataInitializer {
 			u3.setLastName("LastNameU3");
 			u3.setUsername("user3");
 			u3.setPassword("$2y$10$.qkbukzzX21D.bqbI.B2R.tvWP90o/Y16QRWVLodw51BHft7ZWbc.");
-			u3.setLogin("usertest3");
 			u3.setIban("monIBAN");
 			u3.setEmail("test3@test.com");
 			u3.setBalance(20f);
@@ -71,7 +68,6 @@ public class DataInitializer {
 			u4.setLastName("LastNameU3");
 			u4.setUsername("user4");
 			u4.setPassword("$2y$10$.qkbukzzX21D.bqbI.B2R.tvWP90o/Y16QRWVLodw51BHft7ZWbc."); //mdp user
-			u4.setLogin("usertest3");
 			u4.setIban("monIBAN");
 			u4.setEmail("test3@test.com");
 			u4.setBalance(20f);

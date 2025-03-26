@@ -18,7 +18,7 @@
 		<td th:text="${message.date}" />
 		<td th:text="${message.utilisateur.username}" />
 		<td><span th:if="${ message.reponse == null }">
-				<form th:action="@{'/admin/reponse?id=' + ${message.id}}"
+				<form th:action="@{'/admin/reponsemessage?id=' + ${message.id}}"
 					method="POST">
 					<input type="text" name="content"> <input type="submit"
 						value="Repondre au message">
@@ -49,15 +49,15 @@
 		<td th:text="${transaction.date}" />
 		<td th:text="${transaction.sender.username}" />
 		<td th:text="${transaction.reciever.username}" />
-		<td th:text="${transaction.valide}" />
-		<td><span th:if="${!transaction.valide}">
+		<td th:text="${transaction.validated}" />
+		<td><span th:if="${!transaction.validated}">
 				<form th:action="@{'/admin/validertransaction?id=' + ${transaction.id}}"
 					method="POST">
 					<input type="submit" value="Valider">
 				</form>
 			</span> 
 		</td>
-		<td><span th:if="${!transaction.rejet && !transaction.valide}">
+		<td><span th:if="${!transaction.refused && !transaction.validated}">
 				<form th:action="@{'/admin/rejetertransaction?id=' + ${transaction.id}}"
 					method="POST">
 					<input type="submit" value="Rejeter">

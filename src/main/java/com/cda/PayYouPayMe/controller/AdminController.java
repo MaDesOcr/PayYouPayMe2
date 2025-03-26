@@ -33,24 +33,17 @@ public class AdminController {
 		this.utilisateurService = utilisateurService;
 	}
 	
-	
-	
 	@GetMapping("/")
-	public String getHello() {
-		return "hello";
-	}
-	
-	@GetMapping("/alldatas")
 	public String getAllDatas(Model model) {
         logger.info("Connect to allDatas!");
 
 		model.addAttribute("messages", messageService.getAllMessages());
 		model.addAttribute("transactions", transactionService.getAllTransactions());
 		model.addAttribute("utilisateurs", utilisateurService.getAllUtilisateurs());
-		return "alldatas";
+		return "admin";
 	}
 	
-	@PostMapping("/reponse")
+	@PostMapping("/reponsemessage")
 	public String repondreMessage(Model model,  @RequestParam int id,
 			@RequestParam String content) {
 		messageService.repondreMessage(id, content);
@@ -59,7 +52,7 @@ public class AdminController {
 		model.addAttribute("messages", messageService.getAllMessages());
 		model.addAttribute("transactions", transactionService.getAllTransactions());
 		model.addAttribute("utilisateurs", utilisateurService.getAllUtilisateurs());
-		return "alldatas";
+		return "admin";
 	}
 	
 	@PostMapping("/desactiveruser")
@@ -69,7 +62,7 @@ public class AdminController {
 		model.addAttribute("messages", messageService.getAllMessages());
 		model.addAttribute("transactions", transactionService.getAllTransactions());
 		model.addAttribute("utilisateurs", utilisateurService.getAllUtilisateurs());
-		return "alldatas";
+		return "admin";
 	}
 	
 	@PostMapping("/confirmeruser")
@@ -78,7 +71,7 @@ public class AdminController {
 		model.addAttribute("messages", messageService.getAllMessages());
 		model.addAttribute("transactions", transactionService.getAllTransactions());
 		model.addAttribute("utilisateurs", utilisateurService.getAllUtilisateurs());
-		return "alldatas";
+		return "admin";
 	}
 	
 	@PostMapping("/validertransaction")
@@ -87,7 +80,7 @@ public class AdminController {
 		model.addAttribute("messages", messageService.getAllMessages());
 		model.addAttribute("transactions", transactionService.getAllTransactions());
 		model.addAttribute("utilisateurs", utilisateurService.getAllUtilisateurs());
-		return "alldatas";
+		return "admin";
 	}
 	
 	@PostMapping("/rejetertransaction")
@@ -96,7 +89,7 @@ public class AdminController {
 		model.addAttribute("messages", messageService.getAllMessages());
 		model.addAttribute("transactions", transactionService.getAllTransactions());
 		model.addAttribute("utilisateurs", utilisateurService.getAllUtilisateurs());
-		return "alldatas";
+		return "admin";
 	}
 	
 }

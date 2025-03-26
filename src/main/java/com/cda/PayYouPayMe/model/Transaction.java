@@ -2,11 +2,13 @@ package com.cda.PayYouPayMe.model;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.DecimalMin;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,7 +23,7 @@ public class Transaction {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
-	
+	@DecimalMin("0.00")
 	private Float amount;
 	
 	private String messageContent;
@@ -33,9 +35,9 @@ public class Transaction {
 	@ManyToOne
 	private Utilisateur reciever;
 
-	private boolean valide;
+	private boolean validated;
 	
-	private boolean rejet;
+	private boolean refused;
 	
 	
 	public Transaction(Float amount, String messageContent, LocalDate date) {
@@ -97,20 +99,20 @@ public class Transaction {
 		this.reciever = reciever;
 	}
 
-	public boolean isValide() {
-		return valide;
+	public boolean isValidated() {
+		return validated;
 	}
 
-	public void setValide(boolean valide) {
-		this.valide = valide;
+	public void setValidated(boolean validated) {
+		this.validated = validated;
 	}
 
-	public boolean isRejet() {
-		return rejet;
+	public boolean isRefused() {
+		return refused;
 	}
 
-	public void setRejet(boolean rejet) {
-		this.rejet = rejet;
+	public void setRefused(boolean refused) {
+		this.refused = refused;
 	}
 
 	

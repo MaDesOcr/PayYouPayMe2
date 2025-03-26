@@ -31,8 +31,6 @@ public class UtilisateurController {
 	@PostMapping("/saveutilisateur")
 	public String saveUtilisateur(Model model,
 			@ModelAttribute Utilisateur userToSave) {
-		
-		
 		utilisateurService.updateUser(userToSave);
 		
 		Utilisateur utilisateur = utilisateurService.getCurrentUser();
@@ -44,6 +42,14 @@ public class UtilisateurController {
 	public String supendreUtilisateur(Model model) {
 		utilisateurService.suspendreCompte();
 		return "home";
+	}
+	
+	@GetMapping("/reactiver/")
+	public String reactiverCurrentUser(Model model) {
+		utilisateurService.reactiverUser();
+		Utilisateur utilisateur = utilisateurService.getCurrentUser();
+		model.addAttribute("userToDisplay", utilisateur);
+		return "affichageUser";
 	}
 }
 

@@ -17,8 +17,8 @@ public interface TransactionRepository extends JpaRepository<Transaction, Intege
     List<Transaction> findByReciever(Utilisateur receiver);
     
 	 @Query("SELECT t FROM Transaction t WHERE t.sender = :user OR t.reciever = :user ORDER BY t.date DESC")
-	    List<Transaction> findAllByUser(@Param("user") Utilisateur user);
+	 List<Transaction> findAllByUser(@Param("user") Utilisateur user);
 	 
-	@Query("SELECT t FROM Transaction t JOIN t.sender s JOIN t.reciever r WHERE s.login = :login OR r.login = :login ORDER BY t.date DESC")
-    List<Transaction> findAllByUserLogin(@Param("login") String login);
+	@Query("SELECT t FROM Transaction t JOIN t.sender s JOIN t.reciever r WHERE s.username = :username OR r.username = :username ORDER BY t.date DESC")
+    List<Transaction> findAllByUserName(@Param("userName") String login);
 }

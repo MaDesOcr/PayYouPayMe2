@@ -3,6 +3,7 @@ package com.cda.PayYouPayMe.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,10 +24,13 @@ public class Utilisateur {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
+	@Column(unique=true, nullable = false)
 	private String username;
-	private String lastName;
+	
+	private String password;
+	private String role;
 
-	//@Column(name="Prenom")
+	private String lastName;
 	private String firstName;
 
 	private String email;
@@ -35,11 +39,6 @@ public class Utilisateur {
 
 	private Float balance;
 
-	private String login;
-	private String password;
-
-	private String role;
-
 	private boolean actif;
 	
 	private boolean confirmer;
@@ -47,13 +46,9 @@ public class Utilisateur {
 	public Utilisateur() {
 		super();
 	}
-	
-	
-	
-	
 
-	public Utilisateur(Integer id, String username, String lastName, String firstName, String email, String iban,
-			Float balance, String login, String password, String role, boolean actif, List<Transfert> transferts,
+/*	public Utilisateur(Integer id, String username, String lastName, String firstName, String email, String iban,
+			Float balance, String password, String role, boolean actif, List<Transfert> transferts,
 			List<Transaction> transactionSent, List<Transaction> transactionRecieved, List<Message> messageSent,
 			List<Utilisateur> contact) {
 		super();
@@ -64,7 +59,6 @@ public class Utilisateur {
 		this.email = email;
 		this.iban = iban;
 		this.balance = balance;
-		this.login = login;
 		this.password = password;
 		this.role = role;
 		this.actif = actif;
@@ -89,7 +83,6 @@ public class Utilisateur {
 		this.email = email;
 		this.iban = iban;
 		this.balance = balance;
-		this.login = login;
 		this.password = password;
 		this.transactionSent = transactionSent;
 		this.transactionRecieved = transactionRecieved;
@@ -109,18 +102,18 @@ public class Utilisateur {
 		this.email = email;
 		this.iban = iban;
 		this.balance = balance;
-		this.login = login;
 		this.password = password;
 		this.transactionSent = transactionSent;
 		this.transactionRecieved = transactionRecieved;
 		this.messageSent = messageSent;
 		this.contact = contact;
 		this.role = role;
-	}
+	}*/
+	
 
 	@OneToMany(mappedBy = "sender")
 	private List<Transfert> transferts = new ArrayList<Transfert>();
-	
+
 	@OneToMany(mappedBy = "sender")
 	private List<Transaction> transactionSent = new ArrayList<Transaction>();
 
@@ -133,6 +126,32 @@ public class Utilisateur {
 	@ManyToMany//(mappedBy = "contact")
 	private List<Utilisateur> contact = new ArrayList<Utilisateur>();
 
+	
+	
+	public Utilisateur(Integer id, String username, String password, String role, String lastName, String firstName,
+			String email, String iban, Float balance, boolean actif, boolean confirmer, List<Transfert> transferts,
+			List<Transaction> transactionSent, List<Transaction> transactionRecieved, List<Message> messageSent,
+			List<Utilisateur> contact) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.role = role;
+		this.lastName = lastName;
+		this.firstName = firstName;
+		this.email = email;
+		this.iban = iban;
+		this.balance = balance;
+		this.actif = actif;
+		this.confirmer = confirmer;
+		this.transferts = transferts;
+		this.transactionSent = transactionSent;
+		this.transactionRecieved = transactionRecieved;
+		this.messageSent = messageSent;
+		this.contact = contact;
+	}
+	
+	
 	public Integer getId() {
 		return id;
 	}
@@ -179,14 +198,6 @@ public class Utilisateur {
 
 	public void setBalance(Float balance) {
 		this.balance = balance;
-	}
-
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
 	}
 
 	public String getPassword() {

@@ -20,11 +20,8 @@ import jakarta.validation.Valid;
 @Controller
 @RequestMapping("/transaction")
 public class TransactionController {
-
 	
     private static final Logger logger = LoggerFactory.getLogger(TransactionController.class);
-
-    
     
 	private final TransactionService transactionService;
 	private final UtilisateurService utilisateurService;
@@ -39,6 +36,7 @@ public class TransactionController {
 	@GetMapping("/")
 	public String getTransaction(Model model) {
 		model.addAttribute("utilisateur", utilisateurService.getCurrentUser());
+		model.addAttribute("transactioncree" , true);
 		return "transaction";
 	}
 	
@@ -48,9 +46,11 @@ public class TransactionController {
 			@Valid @RequestParam Float amount,
 			@RequestParam String content) {
 		logger.info("Tentative de création d'une transaction");
-		transactionService.createTransaction(reciever, amount, content);
+		boolean ok = transactionService.createTransaction(reciever, amount, content);
 		model.addAttribute("utilisateur", utilisateurService.getCurrentUser());
+		model.addAttribute("transactioncree", ok);
 		return "transaction";
+		 
 	}
 	
 

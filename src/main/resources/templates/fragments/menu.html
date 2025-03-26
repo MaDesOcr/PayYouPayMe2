@@ -1,11 +1,23 @@
 
 <nav th:fragment="menuPrincipal">
-	<a href="/">Home</a>
-	<a href="/me/user/">Profile</a>
-	<a href="/contact/">Contact</a>
-	<a href="/transaction/">Transaction</a>
-	<a href="/transfert/">Transfert</a>
-	<a href="/message/">Message</a>
-	<a href="/admin/alldatas">Admin</a>
-	<a href="/logout">logout</a>
+	<div th:if="${#authorization.expression('hasRole(''USER'')')}">
+		<a href="/">Home</a>
+		<a href="/me/user/">Profile</a>
+		<a href="/contact/">Contact</a>
+		<a href="/transaction/">Transaction</a>
+		<a href="/transfert/">Transfert</a>
+		<a href="/message/">Message</a>
+		<a href="/logout">logout</a>
+	</div>
+	<div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+		<a href="/admin/">Admin</a>
+		<a href="/logout">logout</a>	
+	</div>
+	<div th:if="${#authorization.expression('hasRole(''SUSPENDU'')')}">
+		<a href="/me/user/reactiver/">REACTIVER???</a>
+	</div>
+	<div th:unless="${#authorization.expression('hasAnyRole(''USER'', ''ADMIN'',  ''SUSPENDU'')')}">
+		<a href="/">Home</a>
+		<a href="/login">Login</a>
+	</div>
 </nav>

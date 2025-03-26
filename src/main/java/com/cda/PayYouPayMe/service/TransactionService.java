@@ -38,7 +38,7 @@ public class TransactionService {
     public List<Transaction> getCurrentUserTransactions() {
         String username = authService.getCurrentUsername();
         if (username != null) {
-            return transactionRepository.findAllByUserLogin(username);
+            return transactionRepository.findAllByUserName(username);
         }
         return Collections.emptyList();
     }
@@ -49,7 +49,7 @@ public class TransactionService {
                          .orElse(Collections.emptyList());
     }
 
-	public void createTransaction(String username, Float amount, String content) {
+	public boolean createTransaction(String username, Float amount, String content) {
 		Utilisateur sender = utilisateurService.getCurrentUser();
 		Utilisateur reciever = utilisateurService.getUserByUserName(username);
 		
@@ -61,31 +61,32 @@ public class TransactionService {
 			transactionToCreate.setReciever(reciever);
 			transactionToCreate.setSender(sender);
 			
-			if(sender.isConfirmer()) transactionToCreate.setValide(true);
+			if(sender.isConfirmer()) transactionToCreate.setValidated(true);
 			
 			transactionRepository.save(transactionToCreate);
 			reciever.setBalance(reciever.getBalance()+amount);
 			sender.setBalance(sender.getBalance()-amount);
 			utilisateurService.updateUser(reciever);
 			utilisateurService.updateUser(sender);
+			return true;
 		}
 		else {
-			//pas de message d'erreur, rien de remonter?
+			return false;
 		}
 			
 	}
 
 	public void validerTransaction(int id) {
 		Transaction transactionToValidate = transactionRepository.findById(id).get();
-		transactionToValidate.setValide(true);
+		transactionToValidate.setValidated(true);
 		transactionRepository.save(transactionToValidate);
 		
 	}
 
 	public void rejetTransaction(int id) {
 		Transaction transactionToRejeter = transactionRepository.findById(id).get();
-		transactionToRejeter.setRejet(true);
-		transactionToRejeter.setValide(true);
+		transactionToRejeter.setRefused(true);
+		transactionToRejeter.setValidated(true);
 		
 		Utilisateur sender = transactionToRejeter.getSender();
 		Utilisateur reciever = transactionToRejeter.getReciever();

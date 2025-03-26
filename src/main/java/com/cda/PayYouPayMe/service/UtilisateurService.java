@@ -3,6 +3,7 @@ package com.cda.PayYouPayMe.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.handler.UserRoleAuthorizationInterceptor;
 
@@ -14,11 +15,14 @@ public class UtilisateurService {
 
 	private final UtilisateurRepository utilisateurRepository;
     private final AuthentificationService authService;
+    private final PasswordEncoder passwordEncoder;
 
 	public UtilisateurService(UtilisateurRepository utilisateurRepository,
-			AuthentificationService authService) {
+			AuthentificationService authService,
+			PasswordEncoder passwordEncoder) {
 		this.utilisateurRepository = utilisateurRepository;
 		this.authService = authService;
+		this.passwordEncoder = passwordEncoder;
 	}
 
     public Utilisateur getCurrentUser() {
@@ -35,8 +39,17 @@ public class UtilisateurService {
 		return this.utilisateurRepository.findAll();
 	}
 
-	public void createUser(Utilisateur utilisateurToSave) {
-		utilisateurRepository.save(utilisateurToSave);
+	public void createUser(String userName, String password) {
+		
+			Utilisateur utilisateurToSave = new Utilisateur();
+			utilisateurToSave.setUsername(userName);
+			utilisateurToSave.setPassword(passwordEncoder.encode(password));
+			utilisateurToSave.setActif(true);
+			utilisateurToSave.setBalance(0f);
+			utilisateurToSave.setRole("USER");
+			utilisateurToSave.setConfirmer(false);
+			utilisateurRepository.save(utilisateurToSave);
+
 	}
 	
 	public void updateUser(Utilisateur userToSave) {
@@ -93,5 +106,12 @@ public class UtilisateurService {
 		utilisateurToConfirm.setConfirmer(true);
 		utilisateurRepository.save(utilisateurToConfirm);
 		
+	}
+
+	public void reactiverUser() {
+		Utilisateur utilisateurToReactived = getCurrentUser();
+		utilisateurToReactived.setActif(true);
+		utilisateurToReactived.setRole("USER");
+		utilisateurRepository.save(utilisateurToReactived);
 	}
 }
